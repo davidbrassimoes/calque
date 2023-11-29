@@ -68,7 +68,7 @@ const Main = () => {
 
   return (
     <>
-      <h1 className='title'>Calque</h1>
+      <h1 className='title'>calque</h1>
       <Display x={displayed} />
       <section className='calc'>
         {input.map((x) => (
