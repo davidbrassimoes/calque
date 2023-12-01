@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import ReactDom from "react-dom/client"
 import "./index.css"
 
@@ -13,7 +13,6 @@ const Main = () => {
   const handleClick = (x) => {
     if (
       displayed == 0 &&
-      displayed == "0" &&
       x != "C" &&
       x != "=" &&
       x != "/" &&
@@ -65,6 +64,29 @@ const Main = () => {
       return leftOp + rightOp
     }
   }
+
+  const handleKeyPress = (event) => {
+    event.preventDefault()
+    const { key } = event
+    // Check if the pressed key is a number or an operator
+    if (/[+\-*/]/.test(key)) {
+      handleClick(key)
+    } else if (/[0-9]/.test(key)) {
+      handleClick(key)
+    } else if (key == "Enter") {
+      handleClick("=")
+    } else if (key == "Backspace") {
+      handleClick("C")
+    }
+  }
+
+  // Add event listener to handle key press
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyPress)
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress)
+    }
+  }, [])
 
   return (
     <>
